@@ -29,6 +29,16 @@ android {
 }
 
 dependencies {
+    def camerax_version = "1.1.0"
+    implementation "androidx.camera:camera-core:${camerax_version}"
+//    implementation "androidx.camera:camera-camera2:${camerax_version}"
+//    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+//    implementation "androidx.camera:camera-view:${camerax_version}"
+    implementation 'com.google.ar:core:1.33.0'
+    def play_services_location_version = "16"   // must >= 16
+    def play_services_auth_version = "16"   // must >= 16
+    implementation "com.google.android.gms:play-services-location:${play_services_location_version}"
+    implementation "com.google.android.gms:play-services-auth:${play_services_auth_version}"
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

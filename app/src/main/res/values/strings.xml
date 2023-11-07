@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AR Camera</string>
+
+    <!-- 字符串资源用于 ARCore 安装请求被拒绝的消息 -->
+    <string name="arcore_install_declined">用户拒绝了 ARCore 安装请求</string>
+
+    <!-- 字符串资源用于 ARCore 不可用的消息 -->
+    <string name="arcore_unavailable">ARCore 不可用：%s</string>
+
+    <!-- 字符串资源用于不支持 ARCore 设备的消息 -->
+    <string name="unsupported_device">此设备不支持 ARCore</string>
+
+    <!-- 字符串资源用于未知错误的消息 -->
+    <string name="unknown_error">未知错误检查 ARCore 支持状态</string>
+
+    <!-- 字符串资源用于相机权限被拒绝的消息 -->
+    <string name="camera_permission_required">需要相机权限才能运行此应用</string>
+
+    <!-- 字符串资源用于 AR 会话创建失败的消息 -->
+    <string name="ar_session_creation_failed">AR 会话创建失败：%s</string>
 </resources>
