@@ -1,8 +1,13 @@
 package com.example.arcamera;
 
+import static java.lang.System.exit;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +22,12 @@ import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.UnavailableException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity implements View.OnClickListener{
 
     private String TAG = "ww";
+
+    Button poseButton;
+    TextView textView;
 
     // 是否请求 ARCore 安装
     private boolean mUserRequestedInstall = true;
@@ -31,6 +39,11 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        poseButton = findViewById(R.id.poseButton);
+        poseButton.setOnClickListener(this);
+
+        textView = findViewById(R.id.textView);
+
         // 检查 ArCore 的安装和更新，请求相机权限
         checkPermissionsAndInstallations();
 
@@ -41,6 +54,20 @@ public class CameraActivity extends AppCompatActivity {
 //        super.onResume();
 //        checkPermissionsAndInstallations();
 //    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.poseButton) {
+            String poseStr = getPose();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(poseStr);
+                }
+            });
+        }
+    }
 
     private void checkPermissionsAndInstallations() {
         // 检查 ARCore 支持状态
@@ -110,7 +137,6 @@ public class CameraActivity extends AppCompatActivity {
                 createArSession();
                 try {
                     mSession.resume();
-                    getPose();
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -139,16 +165,17 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    private void getPose() {
+    private String getPose() {
         Earth earth = mSession.getEarth();
 
         // 检查 Earth 是否处于跟踪状态
         if (earth.getTrackingState() == TrackingState.TRACKING) {
             // 获取 Earth-relative 虚拟相机姿态
             GeospatialPose geospatialPose = earth.getCameraGeospatialPose();
-            Log.d(TAG, geospatialPose.toString());
+            return geospatialPose.toString();
         } else {
             // 处理 Earth 不在 TRACKING 状态的情况
+            return "Earth 不在 TRACKING 状态";
         }
     }
 }
