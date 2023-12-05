@@ -2,6 +2,7 @@ package com.example.arcamera;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import com.google.ar.core.exceptions.UnavailableException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
 
 public class CameraActivity extends AppCompatActivity {
+
+    private String TAG = "ww";
 
     // 是否请求 ARCore 安装
     private boolean mUserRequestedInstall = true;
@@ -143,7 +146,7 @@ public class CameraActivity extends AppCompatActivity {
         if (earth.getTrackingState() == TrackingState.TRACKING) {
             // 获取 Earth-relative 虚拟相机姿态
             GeospatialPose geospatialPose = earth.getCameraGeospatialPose();
-            // 现在你可以使用 geospatialPose 来访问地球相对的相机姿态信息
+            Log.d(TAG, geospatialPose.toString());
         } else {
             // 处理 Earth 不在 TRACKING 状态的情况
         }
